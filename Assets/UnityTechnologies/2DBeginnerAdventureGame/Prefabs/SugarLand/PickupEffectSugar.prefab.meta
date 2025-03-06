@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: c9edb1715f3ae764bbb5f0b97877df1b
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 271239
+  packageName: 'Unity Learn | 2D Beginner: Adventure Game Complete Project | URP'
+  packageVersion: 1.0
+  assetPath: Assets/UnityTechnologies/2DBeginnerAdventureGame/Prefabs/SugarLand/PickupEffectSugar.prefab
+  uploadId: 629301
