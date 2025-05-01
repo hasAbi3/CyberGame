@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using System.Globalization;
+using TMPro;
+using UnityEngine.UI;
 
 public class UIHandler : MonoBehaviour
 {
@@ -26,6 +28,17 @@ public class UIHandler : MonoBehaviour
 
     private PasswordCracker passCracker;
 
+    [SerializeField] private GameObject signInPanel;
+    public TMP_Text signInButtonText;
+    private bool isSignInPanelOpen = false;
+    bool isRegistering = false; 
+    public TMP_InputField usernameInput;  
+    public TMP_InputField passwordInput;  
+    public UnityEngine.UI.Button switchButton;  
+    public UnityEngine.UI.Button loginButton;  
+
+    public AuthManager authManager;
+
     private void Awake()
     {
         instance = this;
@@ -33,6 +46,8 @@ public class UIHandler : MonoBehaviour
 
     void Start()
     {
+        signInPanel.SetActive(false);
+
         UIDocument uiDocument = GetComponent<UIDocument>();
         m_Healthbar = uiDocument.rootVisualElement.Q<VisualElement>("Healthbar");
 
@@ -155,6 +170,59 @@ public class UIHandler : MonoBehaviour
         }
         else {
             return "Jambi: Of course! Please create a password for your new account!";
+        }
+    }
+
+       public void signInButtonClick()
+     {
+        isSignInPanelOpen = !isSignInPanelOpen;
+
+        signInPanel.SetActive(isSignInPanelOpen);
+
+        if (isSignInPanelOpen)
+        {
+            signInButtonText.text = "Back";
+        }
+        else
+        {
+            signInButtonText.text = "Sign In";
+        }
+     }
+
+    
+
+    public void ToggleLoginRegisterPanel()
+    {
+        isRegistering = !isRegistering;
+        Debug.Log(isRegistering);
+
+        if (isRegistering)
+        {
+            ((TMP_Text)usernameInput.placeholder).text = "Choose a username";
+            ((TMP_Text)passwordInput.placeholder).text = "Choose a password";
+    
+            loginButton.GetComponentInChildren<TMP_Text>().text = "Register";
+            switchButton.GetComponentInChildren<TMP_Text>().text = "Already have an account? Login";
+        }
+        else
+        {    
+            ((TMP_Text)usernameInput.placeholder).text = "Enter your username";
+            ((TMP_Text)passwordInput.placeholder).text = "Enter your password";
+
+            loginButton.GetComponentInChildren<TMP_Text>().text = "Login";
+            switchButton.GetComponentInChildren<TMP_Text>().text = "Don't have an account? Register";
+        }
+    }
+
+    public void OnLoginRegisterButtonClick()
+    {
+        if (isRegistering)
+        {
+            authManager.OnRegisterClicked();
+        }
+        else
+        {
+            authManager.OnLoginClicked();
         }
     }
 }

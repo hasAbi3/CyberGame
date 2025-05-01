@@ -4,6 +4,8 @@ using UnityEngine.InputSystem;
 
 public class RubyController : MonoBehaviour
 {
+    public AuthManager authManager;
+
     // ========= MOVEMENT =================
     public float speed = 4;
     public InputAction moveAction;
@@ -149,6 +151,8 @@ public class RubyController : MonoBehaviour
         
         UIHandler.instance.SetHealthValue(currentHealth / (float)maxHealth);
         //UIHealthBar.Instance.SetValue(currentHealth / (float)maxHealth);
+
+        authManager.SaveProgress(currentHealth, transform.position);
     }
     
     void Respawn()
